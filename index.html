@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Movies</title>
 
     <style>
@@ -24,10 +24,14 @@
             background: #333;
             color: #fff;
             padding: 20px;
-            text-align: center;
             display: flex;
             justify-content: space-between;
             align-items: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 20px;
         }
 
         header button {
@@ -40,9 +44,7 @@
             font-size: 14px;
         }
 
-        header button:hover {
-            opacity: 0.8;
-        }
+        header button:hover { opacity: 0.8; }
 
         section {
             padding: 20px;
@@ -52,22 +54,25 @@
             transition: background 0.3s, color 0.3s;
         }
 
-        body.dark section {
-            background: #1c1c1c;
-        }
+        body.dark section { background: #1c1c1c; }
 
-        a {
-            color: #0066cc;
+        /* Link-button style */
+        .link-button {
+            display: inline-block;
+            padding: 10px 14px;
+            background: #0066cc;
+            color: #fff !important;
+            border-radius: 6px;
             text-decoration: none;
-            cursor: pointer;
+            margin: 6px 0;
+            font-size: 16px;
         }
 
-        body.dark a {
-            color: #4ea3ff;
-        }
+        .link-button:hover { opacity: 0.9; }
 
-        a:hover {
-            text-decoration: underline;
+        body.dark .link-button {
+            background: #4ea3ff;
+            color: #000 !important;
         }
 
         /* Search Bar */
@@ -78,12 +83,28 @@
             margin-bottom: 12px;
             border: 1px solid #ccc;
             border-radius: 6px;
+            box-sizing: border-box;
         }
 
         body.dark #searchBar {
             background: #333;
             color: #fff;
             border-color: #555;
+        }
+
+        ul#linkList {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        ul#linkList li {
+            margin-bottom: 8px;
+        }
+
+        /* Small responsive tweak */
+        @media (min-width: 640px) {
+            .link-button { width: auto; min-width: 260px; }
         }
     </style>
 </head>
@@ -98,14 +119,48 @@
     <h2>Movies</h2>
 
     <!-- Search Bar -->
-    <input type="text" id="searchBar" placeholder="Search links..." onkeyup="searchLinks()">
+    <input type="text" id="searchBar" placeholder="Search movies..." onkeyup="searchLinks()">
 
     <ul id="linkList">
-        <li><a onclick="cloak('https://drive.google.com/file/d/1bB65cEOgbz2Y0ic6nGDZfUQlECXBk2qt/view')">Jurassic Park</a></li>
-        <li><a onclick="cloak('https://drive.google.com/file/d/1yLc26yxLh0fLJhk3xQvb6Qw8V66BX9kS/view')">Jurassic Park The Lost World</a></li>
-        <li><a onclick="cloak('https://drive.google.com/file/d/1W9RJS1N_rBcNFAA73Y3B6leLhhjXXY9k/view')">Jurassic Park 3</a></li>
-        <li><a onclick="cloak('https://drive.google.com/file/d/1oD0MwA_C9OVb7HeO70m9gAAs-dbm9SJG/view')">Jurassic World</a></li>
-        <li><a onclick="cloak('https://drive.google.com/file/d/1EX4kEXNgSrXoFo-KeUUSiBhXwcCtJdqu/view')">Jurassic World Rebirth</a></li>
+        <li>
+            <a class="link-button"
+               href="https://drive.google.com/file/d/1bB65cEOgbz2Y0ic6nGDZfUQlECXBk2qt/view"
+               target="_blank" rel="noopener noreferrer">
+               Jurassic Park
+            </a>
+        </li>
+
+        <li>
+            <a class="link-button"
+               href="https://drive.google.com/file/d/1yLc26yxLh0fLJhk3xQvb6Qw8V66BX9kS/view"
+               target="_blank" rel="noopener noreferrer">
+               Jurassic Park The Lost World
+            </a>
+        </li>
+
+        <li>
+            <a class="link-button"
+               href="https://drive.google.com/file/d/1W9RJS1N_rBcNFAA73Y3B6leLhhjXXY9k/view"
+               target="_blank" rel="noopener noreferrer">
+               Jurassic Park 3
+            </a>
+        </li>
+
+        <li>
+            <a class="link-button"
+               href="https://drive.google.com/file/d/1oD0MwA_C9OVb7HeO70m9gAAs-dbm9SJG/view"
+               target="_blank" rel="noopener noreferrer">
+               Jurassic World
+            </a>
+        </li>
+
+        <li>
+            <a class="link-button"
+               href="https://drive.google.com/file/d/1EX4kEXNgSrXoFo-KeUUSiBhXwcCtJdqu/view"
+               target="_blank" rel="noopener noreferrer">
+               Jurassic World Rebirth
+            </a>
+        </li>
     </ul>
 </section>
 
@@ -117,43 +172,13 @@
 
     // Search Filter Function
     function searchLinks() {
-        let input = document.getElementById("searchBar").value.toLowerCase();
-        let items = document.querySelectorAll("#linkList li");
+        const input = document.getElementById("searchBar").value.toLowerCase();
+        const items = document.querySelectorAll("#linkList li");
 
         items.forEach(li => {
-            let text = li.innerText.toLowerCase();
+            const text = li.innerText.toLowerCase();
             li.style.display = text.includes(input) ? "" : "none";
         });
-    }
-
-    // About:blank embed cloaker
-    function cloak(url) {
-        var win = window.open("", "_blank");
-
-        win.document.write(`
-            <html>
-            <head>
-                <title>about:blank</title>
-                <style>
-                    body, html {
-                        margin: 0;
-                        padding: 0;
-                        height: 100%;
-                    }
-                    iframe {
-                        width: 100%;
-                        height: 100%;
-                        border: none;
-                    }
-                </style>
-            </head>
-            <body>
-                <iframe src="${url}"></iframe>
-            </body>
-            </html>
-        `);
-
-        win.document.close();
     }
 </script>
 
