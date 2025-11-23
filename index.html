@@ -59,6 +59,7 @@
         a {
             color: #0066cc;
             text-decoration: none;
+            cursor: pointer;
         }
 
         body.dark a {
@@ -94,21 +95,17 @@
 </header>
 
 <section>
-    <h2></h2>
-    <p> <strong></strong></p>
-</section>
-
-<section>
     <h2>Movies</h2>
 
     <!-- Search Bar -->
     <input type="text" id="searchBar" placeholder="Search links..." onkeyup="searchLinks()">
 
     <ul id="linkList">
-        <li><a href="https://example.com" target="_blank">Jurassic Park</a></li>
-        <li><a href="https://example.com" target="_blank">Jurassic Park The Lost World</a></li>
-        <li><a href="https://example.com" target="_blank">Jurassic Park 3</a></li>
-        <li><a href="https://example.com" target="_blank">Jurassic World</a></li>
+        <li><a onclick="cloak('https://drive.google.com/file/d/1bB65cEOgbz2Y0ic6nGDZfUQlECXBk2qt/view')">Jurassic Park</a></li>
+        <li><a onclick="cloak('https://drive.google.com/file/d/1yLc26yxLh0fLJhk3xQvb6Qw8V66BX9kS/view')">Jurassic Park The Lost World</a></li>
+        <li><a onclick="cloak('https://drive.google.com/file/d/1W9RJS1N_rBcNFAA73Y3B6leLhhjXXY9k/view')">Jurassic Park 3</a></li>
+        <li><a onclick="cloak('https://drive.google.com/file/d/1oD0MwA_C9OVb7HeO70m9gAAs-dbm9SJG/view')">Jurassic World</a></li>
+        <li><a onclick="cloak('https://drive.google.com/file/d/1EX4kEXNgSrXoFo-KeUUSiBhXwcCtJdqu/view')">Jurassic World Rebirth</a></li>
     </ul>
 </section>
 
@@ -127,6 +124,36 @@
             let text = li.innerText.toLowerCase();
             li.style.display = text.includes(input) ? "" : "none";
         });
+    }
+
+    // About:blank embed cloaker
+    function cloak(url) {
+        var win = window.open("", "_blank");
+
+        win.document.write(`
+            <html>
+            <head>
+                <title>about:blank</title>
+                <style>
+                    body, html {
+                        margin: 0;
+                        padding: 0;
+                        height: 100%;
+                    }
+                    iframe {
+                        width: 100%;
+                        height: 100%;
+                        border: none;
+                    }
+                </style>
+            </head>
+            <body>
+                <iframe src="${url}"></iframe>
+            </body>
+            </html>
+        `);
+
+        win.document.close();
     }
 </script>
 
